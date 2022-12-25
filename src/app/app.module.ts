@@ -1,16 +1,21 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ModalsComponent } from './modals/modals.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { TaskComponent } from './task/task.component';
+import { DndModule } from 'ngx-drag-drop';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ModalsComponent,
+    TaskComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    ReactiveFormsModule,
+    DndModule
   ],
   providers: [],
   bootstrap: [AppComponent]

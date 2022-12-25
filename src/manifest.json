@@ -1,0 +1,15 @@
+{
+  "name": "Taches",
+  "version": "1.0.0",
+  "description": "Taches à faire",
+  "manifest_version": 3,
+  "author": "Thibaut Leclere",
+  "action":{
+    "default_icon": {
+      "19": "assets/to-do-list.png",
+      "38": "assets/to-do-list.png"
+    },
+    "default_popup": "index.html",
+    "default_title": "Taches"
+  }
+}
