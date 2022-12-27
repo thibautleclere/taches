@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { ModalsComponent } from './modals/modals.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { TaskComponent } from './task/task.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DndModule } from 'ngx-drag-drop';
+import { TaskComponent } from './modals/task.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,8 @@ import { DndModule } from 'ngx-drag-drop';
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    DndModule
+    DndModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

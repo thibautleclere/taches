@@ -1,0 +1,26 @@
+<div class="modal" [ngClass]="{'is-active': isActive}">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <button class="delete" aria-label="close" (click)="isActive = false"></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="field">
+        <div class="control">
+          <input class="input" type="text" [(ngModel)]="task.name">
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
+          <textarea class="textarea" [(ngModel)]="task.description"></textarea>
+        </div>
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <button (click)="saveTask()" class="button is-success">Sauver</button>
+      <article class="message is-danger" *ngIf="error.length">
+        <div class="message-body"> {{ error }}</div>
+      </article>
+    </footer>
+  </div>
+</div>

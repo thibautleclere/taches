@@ -13,12 +13,13 @@
         </div>
         <ng-container *ngFor="let t of todos">
           <div [draggable]="true"
-            class="is-task box has-background-danger has-text-white-ter"
+            class="is-task box todo"
             dndDraggable
             [dndDraggable]="t"
+            (click)="showTask(t)"
           >
             {{ t.name }}
-            <span class="icon">
+            <span class="icon" (click)="deleteTask(t, $event)">
               <i class="fa fa-trash" aria-hidden="true"></i>
             </span>
           </div>
@@ -35,12 +36,13 @@
         </div>
         <ng-container *ngFor="let t of doings">
           <div [draggable]="true"
-               class="is-task box has-background-warning has-text-white-ter"
+               class="is-task box doing"
                dndDraggable
                [dndDraggable]="t"
+               (click)="showTask(t)"
           >
             {{ t.name }}
-            <span class="icon">
+            <span class="icon" (click)="deleteTask(t, $event)">
               <i class="fa fa-trash" aria-hidden="true"></i>
             </span>
           </div>
@@ -57,13 +59,14 @@
         </div>
         <ng-container *ngFor="let t of dones">
           <div
-            class="is-task box has-background-success has-text-white-ter"
+            class="is-task box has-background-grey has-text-white-ter"
             [draggable]="true"
             dndDraggable
             [dndDraggable]="t"
+            (click)="showTask(t)"
           >
             {{ t.name }}
-            <span class="icon">
+            <span class="icon" (click)="deleteTask(t, $event)">
               <i class="fa fa-trash" aria-hidden="true"></i>
             </span>
           </div>
@@ -80,13 +83,14 @@
         </div>
         <ng-container *ngFor="let t of pendings">
           <div
-            class="is-task box has-background-grey has-text-white-ter"
+            class="is-task box pending"
             [draggable]="true"
             dndDraggable
             [dndDraggable]="t"
+            (click)="showTask(t)"
           >
             {{ t.name }}
-            <span class="icon">
+            <span class="icon" (click)="deleteTask(t, $event)">
               <i class="fa fa-trash" aria-hidden="true"></i>
             </span>
           </div>
@@ -104,3 +108,4 @@
 </div>
 
 <app-modals #modalTask (addedTask)="handleNewTasks($event)"></app-modals>
+<app-task #detailTask (updateTask)="saveTasks()"></app-task>

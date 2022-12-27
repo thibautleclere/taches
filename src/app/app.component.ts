@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ITasks, StatusEnum } from './interfaces';
 import { ModalsComponent } from './modals/modals.component';
 import { DndDropEvent } from 'ngx-drag-drop';
+import {TaskComponent} from "./modals/task.component";
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,7 @@ import { DndDropEvent } from 'ngx-drag-drop';
 })
 export class AppComponent implements OnInit {
     @ViewChild('modalTask') public modalTask: ModalsComponent = new ModalsComponent();
+    @ViewChild('detailTask') public detailTask: TaskComponent = new TaskComponent();
     public tasks: ITasks[] = [];
     public todos: ITasks[] = [];
     public doings: ITasks[] = [];
@@ -56,14 +58,27 @@ export class AppComponent implements OnInit {
         this.saveTasks();
     }
 
+    public showTask(task: ITasks): void {
+        this.detailTask.task = task;
+        this.detailTask.isActive = true;
+    }
+
+    public saveTasks(): void {
+        localStorage.setItem('tasks', JSON.stringify(this.tasks));
+        this.detailTask.isActive = false;
+    }
+
+    public deleteTask(task: ITasks, event: Event): void {
+        event.stopPropagation();
+        this.tasks = this.tasks.filter((t) => t.label !== task.label);
+        this.sortTasks();
+        this.saveTasks();
+    }
+
     private sortTasks(): void {
         this.todos = this.tasks.filter((t) => t.status === StatusEnum.TODO);
         this.doings = this.tasks.filter((t) => t.status === StatusEnum.DOING);
         this.dones = this.tasks.filter((t) => t.status === StatusEnum.DONE);
         this.pendings = this.tasks.filter((t) => t.status === StatusEnum.PENDING);
-    }
-
-    private saveTasks(): void {
-      localStorage.setItem('tasks', JSON.stringify(this.tasks));
     }
 }
