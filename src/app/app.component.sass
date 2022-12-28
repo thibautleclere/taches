@@ -1,5 +1,14 @@
 .container
   padding: 20px
+  &.desktop
+    width: 750px
+  .header
+    display: flex
+    justify-content: space-around
+    align-items: center
+    margin-bottom: 1.5rem
+    .title
+      margin-bottom: 0
   .actions
     display: flex
     justify-content: flex-end
@@ -18,14 +27,32 @@
       background-color: #FF8C00
 .column
   border-radius: 5px
+  &.overlap
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px
+    animation: ease
+  &.is-one-quarter
+    padding: 0
+    .has-background-info
+      display: flex
+      justify-content: space-between
+      color: white
+      cursor: pointer
+      margin-bottom: unset
+      .icon.rotated
+        transform: rotate(270deg)
+        transition: transform 0.26s ease
+    .tasks-container
+      overflow: hidden
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px
+      &.hidden
+        max-height: 0rem
+        transition: max-height 0.26s ease
+      &.displayed
+        max-height: 20rem
+        transition: max-height 0.26s ease
 @media screen and (min-width: 700px)
   .columns
     display: flex
     justify-content: space-between
   .column.is-one-quarter
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px
     width: 24%
-    padding: 0
-    &.overlap
-      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px
-      animation: ease

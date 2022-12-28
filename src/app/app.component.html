@@ -1,16 +1,30 @@
-<div class="container">
-  <h1 class="title has-text-centered">Liste des taches</h1>
-  <ng-container *ngIf="tasks.length > 0">
-    <div class="columns body-tasks">
-      <div
-        class="column is-one-quarter todo"
-        dndDropzone
-        (dndDragover)="onDragover($event)"
-        (dndDrop)="onDrop($event)"
-      >
-        <div class="box hero is-info has-text-centered">
-          Taches à faire
-        </div>
+<div class="container" [ngClass]="{'desktop': desktopMode}">
+  <div class="header">
+    <h1 class="title has-text-centered">
+      Liste des taches
+    </h1>
+    <span class="icon" *ngIf="desktopMode" (click)="desktopMode = false">
+      <i class="fa fa-desktop" aria-hidden="true"></i>
+    </span>
+    <span class="icon" *ngIf="!desktopMode" (click)="desktopMode = true">
+      <i class="fa fa-mobile-phone" aria-hidden="true"></i>
+    </span>
+  </div>
+  <div class="columns body-tasks">
+    <div
+      class="column is-one-quarter todo"
+      dndDropzone
+      (dndDragover)="onDragover($event)"
+      (dndDrop)="onDrop($event)"
+    >
+      <div class="box has-background-info"
+           (click)="expandedTodo = !expandedTodo">
+        <span>Taches à faire</span>
+        <span class="icon" [ngClass]="{'rotated': !expandedTodo}">
+          <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+        </span>
+      </div>
+      <div class="tasks-container" [ngClass]="{'hidden': !expandedTodo, 'displayed': expandedTodo}">
         <ng-container *ngFor="let t of todos">
           <div [draggable]="true"
             class="is-task box todo"
@@ -25,15 +39,20 @@
           </div>
         </ng-container>
       </div>
-      <div
-        class="column is-one-quarter doing"
-        dndDropzone
-        (dndDragover)="onDragover($event)"
-        (dndDrop)="onDrop($event)"
-      >
-        <div class="box hero is-info has-text-centered">
-          Taches en cours
-        </div>
+    </div>
+    <div
+      class="column is-one-quarter doing"
+      dndDropzone
+      (dndDragover)="onDragover($event)"
+      (dndDrop)="onDrop($event)"
+    >
+      <div class="box has-background-info" (click)="expandedDoing = !expandedDoing">
+        Taches en cours
+        <span class="icon" [ngClass]="{'rotated': !expandedDoing}">
+          <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+        </span>
+      </div>
+      <div class="tasks-container" [ngClass]="{'hidden': !expandedDoing, 'displayed': expandedDoing}">
         <ng-container *ngFor="let t of doings">
           <div [draggable]="true"
                class="is-task box doing"
@@ -48,15 +67,20 @@
           </div>
         </ng-container>
       </div>
-      <div
-        class="column is-one-quarter done"
-        dndDropzone
-        (dndDragover)="onDragover($event)"
-        (dndDrop)="onDrop($event)"
-      >
-        <div class="box hero is-info has-text-centered">
-          Taches terminées
-        </div>
+    </div>
+    <div
+      class="column is-one-quarter done"
+      dndDropzone
+      (dndDragover)="onDragover($event)"
+      (dndDrop)="onDrop($event)"
+    >
+      <div class="box has-background-info" (click)="expandedDone = !expandedDone">
+        Taches terminées
+        <span class="icon" [ngClass]="{'rotated': !expandedDone}">
+          <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+        </span>
+      </div>
+      <div class="tasks-container" [ngClass]="{'hidden': !expandedDone, 'displayed': expandedDone}">
         <ng-container *ngFor="let t of dones">
           <div
             class="is-task box has-background-grey has-text-white-ter"
@@ -72,15 +96,20 @@
           </div>
         </ng-container>
       </div>
-      <div
-        class="column is-last is-one-quarter pending"
-        dndDropzone
-        (dndDragover)="onDragover($event)"
-        (dndDrop)="onDrop($event)"
-      >
-        <div class="box hero is-info has-text-centered">
-          Taches en attente
-        </div>
+    </div>
+    <div
+      class="column is-last is-one-quarter pending"
+      dndDropzone
+      (dndDragover)="onDragover($event)"
+      (dndDrop)="onDrop($event)"
+    >
+      <div class="box has-background-info" (click)="expandedPending = !expandedPending">
+        Taches en attente
+        <span class="icon" [ngClass]="{'rotated': !expandedPending}">
+          <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+        </span>
+      </div>
+      <div class="tasks-container" [ngClass]="{'hidden': !expandedPending, 'displayed': expandedPending}">
         <ng-container *ngFor="let t of pendings">
           <div
             class="is-task box pending"
@@ -97,7 +126,7 @@
         </ng-container>
       </div>
     </div>
-  </ng-container>
+  </div>
 
   <div class="columns">
     <div class="column actions">

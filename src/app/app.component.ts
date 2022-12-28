@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { ITasks, StatusEnum } from './interfaces';
 import { ModalsComponent } from './modals/modals.component';
 import { DndDropEvent } from 'ngx-drag-drop';
@@ -17,6 +17,11 @@ export class AppComponent implements OnInit {
     public doings: ITasks[] = [];
     public dones: ITasks[] = [];
     public pendings: ITasks[] = [];
+    public expandedTodo: boolean = true;
+    public expandedDoing: boolean = true;
+    public expandedDone: boolean = true;
+    public expandedPending: boolean = true;
+    public desktopMode: boolean = false;
     private classes: string[] = ['todo', 'doing', 'done', 'pending'];
 
     public ngOnInit() {
@@ -30,10 +35,7 @@ export class AppComponent implements OnInit {
     }
 
     public onDragover(event: DragEvent): void {
-        const columns = document.getElementsByClassName('is-one-quarter');
-        for (let columnKey in columns) {
-            columns[columnKey].classList?.remove('overlap');
-        }
+        this.resetOverlap();
         const element = event.currentTarget as Element;
         if (this.classes.some((className: string) => element?.classList?.contains(className))) {
             element.classList.add('overlap');
@@ -41,6 +43,7 @@ export class AppComponent implements OnInit {
     }
 
     public onDrop(dropEvent: DndDropEvent): void {
+        this.resetOverlap();
         const element = dropEvent.event.currentTarget as Element;
         const draggingTask: ITasks = dropEvent.data;
         const task = this.tasks.find((t) => t.label === draggingTask.label);
@@ -80,5 +83,12 @@ export class AppComponent implements OnInit {
         this.doings = this.tasks.filter((t) => t.status === StatusEnum.DOING);
         this.dones = this.tasks.filter((t) => t.status === StatusEnum.DONE);
         this.pendings = this.tasks.filter((t) => t.status === StatusEnum.PENDING);
+    }
+
+    private resetOverlap(): void {
+        const columns = document.getElementsByClassName('is-one-quarter');
+        for (let columnKey in columns) {
+            columns[columnKey].classList?.remove('overlap');
+        }
     }
 }
