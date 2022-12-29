@@ -16,7 +16,7 @@ Copy the file `src/manifest.json` to the `dist` directory.
 
 Go to `chrome://extensions/` then click on the toggle Developper Mode
 
-![Mode developpeur](https://github.com/thibautleclere/taches/blob/production/developperMode?raw=true)
+![Mode developpeur](https://github.com/thibautleclere/taches/blob/production/developperMode.png?raw=true)
 
 Then load the packaged extension by selecting the dist directory
 => It will add the extension to Chrome
