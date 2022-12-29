@@ -142,7 +142,10 @@
 
   <div class="columns">
     <div class="column actions">
+      <button class="button is-link is-dark" (click)="save()">Enregistrer</button>
       <button class="button is-info is-light" (click)="addTask()">Nouvelle tâche</button>
+    </div>
+    <div class="column actions">
       <div *ngIf="projects.length > 0" class="control has-icons-left">
         <div class="select">
           <select (change)="filterByProject($event)">
@@ -153,6 +156,23 @@
         <div class="icon is-small is-left">
           <i class="fa fa-briefcase"></i>
         </div>
+      </div>
+      <div class="file is-link">
+        <label class="file-label">
+          <input class="file-input"
+                 type="file"
+                 name="tasks_file"
+                 (change)="loadTasks($event)"
+                 accept="application/json">
+          <span class="file-cta">
+            <span class="file-icon">
+              <i class="fa fa-upload"></i>
+            </span>
+            <span class="file-label">
+              {{ fileName || "Charger des taches" }}
+            </span>
+          </span>
+        </label>
       </div>
     </div>
   </div>

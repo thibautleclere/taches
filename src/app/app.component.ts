@@ -24,6 +24,7 @@ export class AppComponent implements OnInit {
     public expandedDone: boolean = true;
     public expandedPending: boolean = true;
     public desktopMode: boolean = false;
+    public fileName: string = '';
     private classes: string[] = ['todo', 'doing', 'done', 'pending'];
 
     public constructor(
@@ -90,6 +91,21 @@ export class AppComponent implements OnInit {
         const project: string = select?.value || '';
         this.tasks = this.tasksService.getTasks(project);
         this.sortTasks();
+    }
+
+    public save(): void {
+        this.tasksService.saveTasksOnFile();
+    }
+
+    public async loadTasks(event: Event): Promise<void> {
+        const target = event.target as HTMLInputElement;
+        if (target.files && target.files.length > 0) {
+            const file: File| null = target.files.item(0);
+            this.fileName = file?.name || '';
+            const data: string = await file?.text() || '';
+            this.tasks = JSON.parse(data);
+            this.sortTasks();
+        }
     }
 
     private sortTasks(): void {

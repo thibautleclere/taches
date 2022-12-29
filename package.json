@@ -6,6 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "build-prod": "ng build --configuration production",
+    "build-extension": "ng build --configuration production && cp src/manifest.json dist",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -20,8 +21,10 @@
     "@angular/platform-browser-dynamic": "^15.0.0",
     "@angular/router": "^15.0.0",
     "bulma": "^0.9.4",
+    "file-saver": "^2.0.5",
     "font-awesome": "^4.7.0",
     "ngx-drag-drop": "^15.0.1",
+    "ngx-filesaver": "^14.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"
