@@ -1,8 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ITasks, StatusEnum } from './interfaces';
 import { ModalsComponent } from './modals/modals.component';
 import { DndDropEvent } from 'ngx-drag-drop';
-import {TaskComponent} from "./modals/task.component";
+import { TaskComponent } from './modals/task.component';
+import { TaskService } from './services/task.service';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,7 @@ export class AppComponent implements OnInit {
     public doings: ITasks[] = [];
     public dones: ITasks[] = [];
     public pendings: ITasks[] = [];
+    public projects: string[] = [];
     public expandedTodo: boolean = true;
     public expandedDoing: boolean = true;
     public expandedDone: boolean = true;
@@ -24,14 +26,19 @@ export class AppComponent implements OnInit {
     public desktopMode: boolean = false;
     private classes: string[] = ['todo', 'doing', 'done', 'pending'];
 
+    public constructor(
+      private tasksService: TaskService
+    ) {
+    }
+
     public ngOnInit() {
-        const tasks = localStorage.getItem('tasks') || '[]';
-        this.tasks = JSON.parse(tasks);
+        this.tasks = this.tasksService.getTasks();
         this.sortTasks();
     }
 
     public addTask() {
         this.modalTask.isActive = true;
+        this.modalTask.projects = this.projects;
     }
 
     public onDragover(event: DragEvent): void {
@@ -67,7 +74,7 @@ export class AppComponent implements OnInit {
     }
 
     public saveTasks(): void {
-        localStorage.setItem('tasks', JSON.stringify(this.tasks));
+        this.tasksService.setTasks(this.tasks);
         this.detailTask.isActive = false;
     }
 
@@ -78,11 +85,19 @@ export class AppComponent implements OnInit {
         this.saveTasks();
     }
 
+    public filterByProject(event: Event): void {
+        const select: HTMLSelectElement = event.target as HTMLSelectElement;
+        const project: string = select?.value || '';
+        this.tasks = this.tasksService.getTasks(project);
+        this.sortTasks();
+    }
+
     private sortTasks(): void {
         this.todos = this.tasks.filter((t) => t.status === StatusEnum.TODO);
         this.doings = this.tasks.filter((t) => t.status === StatusEnum.DOING);
         this.dones = this.tasks.filter((t) => t.status === StatusEnum.DONE);
         this.pendings = this.tasks.filter((t) => t.status === StatusEnum.PENDING);
+        this.projects = this.tasksService.getProjects();
     }
 
     private resetOverlap(): void {

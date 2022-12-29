@@ -5,6 +5,7 @@ export interface ITasks {
   label?: string;
   description: string;
   status?: StatusEnum;
+  project?: string;
 }
 
 export enum StatusEnum {
@@ -18,4 +19,5 @@ export enum StatusEnum {
 export interface TaskForm {
   name: FormControl<string>;
   description: FormControl<string>;
+  project: FormControl<string>;
 }

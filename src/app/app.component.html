@@ -32,6 +32,9 @@
             [dndDraggable]="t"
             (click)="showTask(t)"
           >
+            <span class="tag" *ngIf="t.project">
+              {{ t.project }}
+            </span>
             {{ t.name }}
             <span class="icon" (click)="deleteTask(t, $event)">
               <i class="fa fa-trash" aria-hidden="true"></i>
@@ -60,6 +63,9 @@
                [dndDraggable]="t"
                (click)="showTask(t)"
           >
+            <span class="tag" *ngIf="t.project">
+              {{ t.project }}
+            </span>
             {{ t.name }}
             <span class="icon" (click)="deleteTask(t, $event)">
               <i class="fa fa-trash" aria-hidden="true"></i>
@@ -89,6 +95,9 @@
             [dndDraggable]="t"
             (click)="showTask(t)"
           >
+            <span class="tag" *ngIf="t.project">
+              {{ t.project }}
+            </span>
             {{ t.name }}
             <span class="icon" (click)="deleteTask(t, $event)">
               <i class="fa fa-trash" aria-hidden="true"></i>
@@ -118,6 +127,9 @@
             [dndDraggable]="t"
             (click)="showTask(t)"
           >
+            <span class="tag" *ngIf="t.project">
+              {{ t.project }}
+            </span>
             {{ t.name }}
             <span class="icon" (click)="deleteTask(t, $event)">
               <i class="fa fa-trash" aria-hidden="true"></i>
@@ -131,6 +143,17 @@
   <div class="columns">
     <div class="column actions">
       <button class="button is-info is-light" (click)="addTask()">Nouvelle tâche</button>
+      <div *ngIf="projects.length > 0" class="control has-icons-left">
+        <div class="select">
+          <select (change)="filterByProject($event)">
+            <option value="">Projet</option>
+            <option *ngFor="let project of projects">{{project}}</option>
+          </select>
+        </div>
+        <div class="icon is-small is-left">
+          <i class="fa fa-briefcase"></i>
+        </div>
+      </div>
     </div>
   </div>
 
