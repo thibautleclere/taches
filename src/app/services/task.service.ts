@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { ITasks } from '../interfaces';
+import {Injectable} from '@angular/core';
+import {ITasks, StatusEnum} from '../interfaces';
 import * as fileSaver from 'file-saver';
 
 @Injectable()
@@ -22,9 +22,13 @@ export class TaskService {
     }
 
     public saveTasksOnFile(): void {
-        const sTasks: string = JSON.stringify(this.getTasks());
+        const tasks = this.getTasks();
+        const sTasks: string = JSON.stringify(tasks);
         const blob = new Blob([sTasks], {type: 'application/json'});
-        fileSaver.saveAs(blob, this.getToday());
+        fileSaver.saveAs(blob, `json${this.getToday()}`);
+        const text: string = this.buildFile(tasks);
+        const blobT = new Blob([text], {type: 'text/plain'});
+        fileSaver.saveAs(blobT, this.getToday());
     }
 
     private getToday(): string {
@@ -32,6 +36,26 @@ export class TaskService {
         return today.getDay().toString().padStart(2, '0')
           +today.getMonth().toString().padStart(2, '0')
           +today.getFullYear();
+    }
+
+    private buildFile(tasks: ITasks[]): string {
+        let s: string = `Taches à faire\n\n\n`;
+        s += this.buildTasksStatus(tasks, StatusEnum.TODO);
+        s += `\n\nTaches en cours\n\n\n`;
+        s += this.buildTasksStatus(tasks, StatusEnum.DOING);
+        s += `\n\nTaches terminées\n\n\n`;
+        s += this.buildTasksStatus(tasks, StatusEnum.DONE);
+        s += `\n\nTaches en attente\n\n\n`;
+        s += this.buildTasksStatus(tasks, StatusEnum.PENDING);
+        return s;
+    }
+
+    private buildTasksStatus(tasks: ITasks[], status: StatusEnum): string {
+      let sText: string = '';
+        tasks.filter((t) => t.status === status).forEach((t) => {
+          sText += `${t.label}\n\t${t.description}`;
+        });
+        return sText;
     }
 
 }

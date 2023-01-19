@@ -4,6 +4,7 @@ import { ModalsComponent } from './modals/modals.component';
 import { DndDropEvent } from 'ngx-drag-drop';
 import { TaskComponent } from './modals/task.component';
 import { TaskService } from './services/task.service';
+import {ReminderComponent} from "./modals/reminder.component";
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ import { TaskService } from './services/task.service';
 export class AppComponent implements OnInit {
     @ViewChild('modalTask') public modalTask: ModalsComponent = new ModalsComponent();
     @ViewChild('detailTask') public detailTask: TaskComponent = new TaskComponent();
+    @ViewChild('reminder') public reminder: ReminderComponent = new ReminderComponent();
     public tasks: ITasks[] = [];
     public todos: ITasks[] = [];
     public doings: ITasks[] = [];
@@ -40,6 +42,10 @@ export class AppComponent implements OnInit {
     public addTask() {
         this.modalTask.isActive = true;
         this.modalTask.projects = this.projects;
+    }
+
+    public openReminder() {
+        this.reminder.isActive = true;
     }
 
     public onDragover(event: DragEvent): void {

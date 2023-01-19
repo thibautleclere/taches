@@ -1,0 +1,22 @@
+<div class="modal" [ngClass]="{'is-active': isActive}">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Pense Bete</p>
+      <button class="delete" aria-label="close" (click)="isActive = false"></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="field">
+        <div class="control">
+          <textarea class="textarea" [(ngModel)]="text"></textarea>
+        </div>
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <button (click)="saveReminder()" class="button is-success">Sauver</button>
+      <article class="message is-danger" *ngIf="error.length">
+        <div class="message-body"> {{ error }}</div>
+      </article>
+    </footer>
+  </div>
+</div>

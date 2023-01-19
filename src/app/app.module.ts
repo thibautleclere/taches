@@ -6,12 +6,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DndModule } from 'ngx-drag-drop';
 import { TaskComponent } from './modals/task.component';
 import { TaskService} from './services/task.service';
+import { ReminderComponent } from './modals/reminder.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ModalsComponent,
-    TaskComponent
+    TaskComponent,
+    ReminderComponent
   ],
   imports: [
     BrowserModule,

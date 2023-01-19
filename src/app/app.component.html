@@ -142,6 +142,7 @@
 
   <div class="columns">
     <div class="column actions">
+      <button class="button is-info is-light" (click)="openReminder()">PenseBete</button>
       <button class="button is-link is-dark" (click)="save()">Enregistrer</button>
       <button class="button is-info is-light" (click)="addTask()">Nouvelle tâche</button>
     </div>
@@ -181,3 +182,4 @@
 
 <app-modals #modalTask (addedTask)="handleNewTasks($event)"></app-modals>
 <app-task #detailTask (updateTask)="saveTasks()"></app-task>
+<app-reminder #reminder></app-reminder>

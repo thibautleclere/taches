@@ -21,7 +21,7 @@ export class ModalsComponent {
             name: new FormControl('', Validators.required),
             description: new FormControl('', Validators.required),
             project: new FormControl(''),
-            existingProject: new FormControl(this.projects)
+            existingProject: new FormControl('')
         });
     }
 
@@ -32,7 +32,7 @@ export class ModalsComponent {
                 label: this.taskForm.value.name?.replaceAll(' ', '-'),
                 description: this.taskForm.value.description,
                 status: StatusEnum.TODO,
-                project: this.taskForm.value.project || this.taskForm.value.existingProject
+                project: this.taskForm.value.project || this.taskForm.value.existingProject || undefined
             };
             this.isActive = false;
             this.addedTask.emit(newTask);
