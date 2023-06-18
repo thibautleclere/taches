@@ -4,6 +4,7 @@ export interface ITasks {
   name: string;
   label?: string;
   description: string;
+  underTasks?: IUnderTask[];
   status?: StatusEnum;
   project?: string;
 }
@@ -20,4 +21,13 @@ export interface TaskForm {
   name: FormControl<string>;
   description: FormControl<string>;
   project: FormControl<string>;
+}
+
+export interface IUnderTaskForm {
+    underTask: FormControl<string|null>;
+}
+
+export interface IUnderTask {
+    description: string;
+    locked: boolean;
 }

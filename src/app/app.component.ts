@@ -77,12 +77,13 @@ export class AppComponent implements OnInit {
 
     public showTask(task: ITasks): void {
         this.detailTask.task = task;
+        this.detailTask.undertasks = task.underTasks || [];
         this.detailTask.isActive = true;
     }
 
-    public saveTasks(): void {
+    public saveTasks(openModal: boolean = false): void {
         this.tasksService.setTasks(this.tasks);
-        this.detailTask.isActive = false;
+        this.detailTask.isActive = openModal;
     }
 
     public deleteTask(task: ITasks, event: Event): void {

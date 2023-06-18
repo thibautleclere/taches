@@ -15,6 +15,29 @@
           <textarea class="textarea" [(ngModel)]="task.description"></textarea>
         </div>
       </div>
+      <div class="field" *ngFor="let undertask of  undertasks ;let i = index;">
+        <div class="undertasks-control" *ngIf="undertask">
+          <input
+              class="input"
+              type="text"
+              placeholder="Sous tache"
+              (change)="handleChange($event, i)"
+              [value]="undertask.description"
+              [ngClass]="{'locked': undertask.locked}"
+              [readOnly]="undertask.locked"
+          />
+          <button class="button is-danger" (click)="remove(i)">
+            <span class="icon is-small">
+              <i class="fa fa-solid fa-trash"></i>
+            </span>
+          </button>
+          <button class="button is-primary" (click)="lockUndertask(i)">
+            <span class="icon is-small">
+              <i class="fa fa-solid" [ngClass]="{'fa-lock': undertask.locked, 'fa-unlock': !undertask.locked}"></i>
+            </span>
+          </button>
+        </div>
+      </div>
     </section>
     <footer class="modal-card-foot">
       <button (click)="saveTask()" class="button is-success">Sauver</button>

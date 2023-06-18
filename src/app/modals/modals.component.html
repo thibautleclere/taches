@@ -14,10 +14,21 @@
           </div>
         </div>
         <div class="field">
-          <label class="label">Message</label>
+          <label class="label">Description tâche</label>
           <div class="control">
             <textarea class="textarea" placeholder="Description taches" formControlName="description"></textarea>
           </div>
+        </div>
+        <div class="field" *ngFor="let control of  underTasksFieldAsFormArray.controls ;let i = index;" formArrayName="underTasks">
+          <div class="control has-icons-right" [formGroupName]="i">
+            <input class="input" type="text" placeholder="Sous tache" formControlName="underTask">
+            <span class="icon is-right">
+              <i class="fa fa-solid fa-trash" (click)="remove(i)"></i>
+            </span>
+          </div>
+        </div>
+        <div class="field">
+          <button (click)="addUnderTask()" class="button is-success">Sous tache</button>
         </div>
         <div class="field">
           <label class="label">Projet</label>
