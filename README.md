@@ -20,3 +20,5 @@ Go to `chrome://extensions/` then click on the toggle Developper Mode
 
 Then load the packaged extension by selecting the dist directory
 => It will add the extension to Chrome
+
+// TODO ajouter un chrono sur les taches quand elles sont en cours
