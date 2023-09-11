@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {ITasks, StatusEnum} from '../interfaces';
+import {ITasks, StatusEnum, TimeInterface} from '../interfaces';
 import * as fileSaver from 'file-saver';
 
 @Injectable()
@@ -19,6 +19,20 @@ export class TaskService {
 
     public getProjects(): string[] {
         return [...new Set(this.getTasks().map((t) => t.project || '').filter((p) => !!p))];
+    }
+
+    public operationTime(timestamp: number): TimeInterface
+    {
+        // Convertir la différence en secondes, minutes et heures
+        const secondes = Math.floor(timestamp / 1000);
+        const minutes = Math.floor(secondes / 60);
+        const heures = Math.floor(minutes / 60);
+
+        return {
+            secondes: secondes % 60,
+            minutes: minutes % 60,
+            heures: heures
+        };
     }
 
     public saveTasksOnFile(): void {

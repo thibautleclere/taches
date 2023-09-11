@@ -7,6 +7,9 @@ export interface ITasks {
   underTasks?: IUnderTask[];
   status?: StatusEnum;
   project?: string;
+
+  startDoing?: number;
+  time?: number;
 }
 
 export enum StatusEnum {
@@ -30,4 +33,10 @@ export interface IUnderTaskForm {
 export interface IUnderTask {
     description: string;
     locked: boolean;
+}
+
+export interface TimeInterface {
+    secondes: number;
+    minutes: number;
+    heures: number;
 }

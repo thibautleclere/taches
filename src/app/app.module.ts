@@ -7,13 +7,15 @@ import { DndModule } from 'ngx-drag-drop';
 import { TaskComponent } from './modals/task.component';
 import { TaskService} from './services/task.service';
 import { ReminderComponent } from './modals/reminder.component';
+import { CardTaskComponent } from './card-task/card-task.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ModalsComponent,
     TaskComponent,
-    ReminderComponent
+    ReminderComponent,
+    CardTaskComponent
   ],
   imports: [
     BrowserModule,

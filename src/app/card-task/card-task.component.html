@@ -1,0 +1,21 @@
+<div [draggable]="true"
+     class="is-task box"
+     [ngClass]="status"
+     dndDraggable
+     [dndDraggable]="task"
+     (click)="showTask()"
+>
+    <span class="tag" *ngIf="task.project">
+      {{ task.project }}
+    </span>
+    {{ task.name }}
+    <span class="icon" (click)="delete()">
+      <i class="fa fa-trash" aria-hidden="true"></i>
+    </span>
+    <span class="clock" *ngIf="time.length > 0">
+        <span class="icon">
+          <i class="fa fa-clock-o" aria-hidden="true"></i>
+        </span>
+        {{ time }}
+    </span>
+</div>

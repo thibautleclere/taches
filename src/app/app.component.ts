@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ITasks, StatusEnum } from './interfaces';
-import { ModalsComponent } from './modals/modals.component';
-import { DndDropEvent } from 'ngx-drag-drop';
-import { TaskComponent } from './modals/task.component';
-import { TaskService } from './services/task.service';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {ITasks, StatusEnum} from './interfaces';
+import {ModalsComponent} from './modals/modals.component';
+import {DndDropEvent} from 'ngx-drag-drop';
+import {TaskComponent} from './modals/task.component';
+import {TaskService} from './services/task.service';
 import {ReminderComponent} from "./modals/reminder.component";
 
 @Component({
@@ -64,6 +64,7 @@ export class AppComponent implements OnInit {
         const newStatus = this.classes.find((className: string) => element?.classList?.contains(className));
         if (newStatus && task) {
             task.status = newStatus as StatusEnum;
+            this.setTimeToTask(newStatus as StatusEnum, task);
             this.sortTasks();
             this.saveTasks();
         }
@@ -86,8 +87,7 @@ export class AppComponent implements OnInit {
         this.detailTask.isActive = openModal;
     }
 
-    public deleteTask(task: ITasks, event: Event): void {
-        event.stopPropagation();
+    public deleteTask(task: ITasks): void {
         this.tasks = this.tasks.filter((t) => t.label !== task.label);
         this.sortTasks();
         this.saveTasks();
@@ -127,6 +127,17 @@ export class AppComponent implements OnInit {
         const columns = document.getElementsByClassName('is-one-quarter');
         for (let columnKey in columns) {
             columns[columnKey].classList?.remove('overlap');
+        }
+    }
+
+    private setTimeToTask(newStatus: StatusEnum, task : ITasks): void
+    {
+        task.status = newStatus;
+        if (task.status === StatusEnum.DOING) {
+            task.startDoing = (new Date()).getTime();
+        } else if (task.startDoing) {
+            task.time = (task.time || 0) + ((new Date()).getTime() - task.startDoing);
+            task.startDoing = undefined;
         }
     }
 }
