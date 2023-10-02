@@ -26,7 +26,7 @@
       </div>
       <div class="tasks-container" [ngClass]="{'hidden': !expandedTodo, 'displayed': expandedTodo}">
         <ng-container *ngFor="let t of todos">
-          <card-task [task]="t" (deleteTask)="deleteTask(t)"></card-task>
+          <card-task [task]="t" (deleteTask)="deleteTask(t)" (displayTask)="showTask(t)"></card-task>
         </ng-container>
       </div>
     </div>
@@ -44,7 +44,7 @@
       </div>
       <div class="tasks-container" [ngClass]="{'hidden': !expandedDoing, 'displayed': expandedDoing}">
         <ng-container *ngFor="let t of doings">
-          <card-task [task]="t" (deleteTask)="deleteTask(t)"></card-task>
+          <card-task [task]="t" (deleteTask)="deleteTask(t)" (displayTask)="showTask(t)"></card-task>
         </ng-container>
       </div>
     </div>
@@ -62,7 +62,7 @@
       </div>
       <div class="tasks-container" [ngClass]="{'hidden': !expandedDone, 'displayed': expandedDone}">
         <ng-container *ngFor="let t of dones">
-          <card-task [task]="t" (deleteTask)="deleteTask(t)"></card-task>
+          <card-task [task]="t" (deleteTask)="deleteTask(t)" (displayTask)="showTask(t)"></card-task>
         </ng-container>
       </div>
     </div>
@@ -80,7 +80,7 @@
       </div>
       <div class="tasks-container" [ngClass]="{'hidden': !expandedPending, 'displayed': expandedPending}">
         <ng-container *ngFor="let t of pendings">
-          <card-task [task]="t" (deleteTask)="deleteTask(t)"></card-task>
+          <card-task [task]="t" (deleteTask)="deleteTask(t)" (displayTask)="showTask(t)"></card-task>
         </ng-container>
       </div>
     </div>
